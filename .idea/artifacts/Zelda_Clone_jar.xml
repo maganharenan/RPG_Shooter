@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Zelda Clone:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Zelda_Clone_jar</output-path>
+    <root id="archive" name="Zelda Clone.jar">
+      <element id="module-output" name="Zelda Clone" />
+    </root>
+  </artifact>
+</component>
