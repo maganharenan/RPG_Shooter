@@ -56,6 +56,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
     public static Random random;
     private boolean restartGame = false;
     public boolean saveGame = false;
+    public static BufferedImage minimap;
+    public static int[] minimapPixels;
 
     public Game() {
         Sound sound = new Sound();
@@ -83,6 +85,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         initEntities();
         bullets = new ArrayList<Bullet>();
         world = new World("/level1.png");
+        minimap = new BufferedImage(World.WIDTH, World.HEIGHT, BufferedImage.TYPE_INT_RGB);
+        minimapPixels = ((DataBufferInt)minimap.getRaster().getDataBuffer()).getData();
     }
 
     public static void initEntities() {
@@ -203,6 +207,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         graphics.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
         //graphics.setFont(font);
         //graphics.drawString("Teste de nova fonte", 40, 40);
+
+        World.renderMinimap();
+        graphics.drawImage(minimap, 530,530, World.WIDTH * 5, World.HEIGHT * 5, null);
 
         if (gameState == "GameOver") {
             Graphics2D graphics2D = (Graphics2D)graphics;

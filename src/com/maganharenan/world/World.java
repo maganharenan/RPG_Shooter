@@ -103,6 +103,24 @@ public class World {
         return !(firstConditional || secondConditional || thirdConditional || fourthConditional);
     }
 
+    public static void renderMinimap() {
+        for (int index = 0; index < Game.minimapPixels.length; index ++) {
+            Game.minimapPixels[index] = 0;
+        }
+        for (int xAxis = 0; xAxis < WIDTH; xAxis++) {
+            for (int yAxis = 0; yAxis < HEIGHT; yAxis++) {
+                if (tiles[xAxis + (yAxis * WIDTH)] instanceof WallTile) {
+                    Game.minimapPixels[xAxis + (yAxis * WIDTH)] = 0xFF808080;
+                }
+            }
+        }
+
+        int xPlayer = Game.player.getX() / 24;
+        int yPlayer = Game.player.getY() / 24;
+
+        Game.minimapPixels[xPlayer + (yPlayer * WIDTH)] = 0xFF0000;
+    }
+
     public void render(Graphics graphics) {
         int startX = Camera.x / 24;
         int startY = Camera.y / 24;
