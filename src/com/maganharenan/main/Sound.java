@@ -2,8 +2,6 @@ package com.maganharenan.main;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.io.IOException;
 import java.net.URL;
 

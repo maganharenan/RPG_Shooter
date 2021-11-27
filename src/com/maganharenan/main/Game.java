@@ -20,6 +20,7 @@ import java.awt.image.DataBufferInt;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -48,7 +49,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
     public static String gameState = "Menu";
     private boolean showGameOverMessage = false;
     private int framesMessage = 0, maxFramesMessage = 10;
-    public InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("pixelfont.tff");
+    public InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("pixelfont.ttf");
     public Font font;
     public int[] pixels;
 
@@ -183,6 +184,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
         // Game render
         world.render(graphics);
+
+        Collections.sort(entities, Entity.nodeSorter);
 
         for (int index = 0; index < entities.size(); index++) {
             Entity entity = entities.get(index);

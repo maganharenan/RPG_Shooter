@@ -8,6 +8,7 @@ import com.maganharenan.world.World;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Comparator;
 import java.util.List;
 
 public class Entity {
@@ -23,6 +24,8 @@ public class Entity {
     protected int z;
     protected int width;
     protected int height;
+
+    public int depth;
 
     public double speed = 0.6;
 
@@ -44,6 +47,20 @@ public class Entity {
         this.maskWidth = width;
         this.maskHeight = height;
     }
+
+    public static Comparator<Entity> nodeSorter = new Comparator<Entity>() {
+        @Override
+        public int compare(Entity o1, Entity o2) {
+            if (o2.depth < o1.depth) {
+                return  +1;
+            }
+            if (o2.depth > o1.depth) {
+                return -1;
+            }
+
+            return 0;
+        }
+    };
 
     public void setMask(int maskX, int maskY, int maskWidth, int maskHeight) {
         this.maskX = maskX;
@@ -85,23 +102,22 @@ public class Entity {
             if (path.size() > 0) {
                 Vector2i target = path.get(path.size() - 1).tile;
 
-                if (x < target.x * 24 && World.pathIsFree((int) (x + speed), this.getY()) && !isColliding((int) (x + speed), this.getY())) {
-                    x += 1.0;
+                if (x < target.x * 24 && World.pathIsFree((int) (x + speed), this.getY()) && !isColliding((int) (x + 1), this.getY())) {
+                    x++;
                 }
-                else if (x > target.x * 24 && World.pathIsFree((int) (x - speed), this.getY()) && !isColliding((int) (x - speed), this.getY())) {
-                    x -= 1.0;
+                else if (x > target.x * 24 && World.pathIsFree((int) (x - speed), this.getY()) && !isColliding((int) (x - 1), this.getY())) {
+                    x--;
                 }
 
-                if (y < target.y * 24 && World.pathIsFree(this.getX(), (int) (y + speed)) && !isColliding(this.getX(), (int) (y + speed))) {
-                    y += 1.0;
+                if (y < target.y * 24 && World.pathIsFree(this.getX(), (int) (y + speed)) && !isColliding(this.getX(), (int) (y + 1))) {
+                    y++;
                 }
-                else if (y > target.y * 24 && World.pathIsFree(this.getX(), (int) (y - speed)) && !isColliding(this.getX(), (int) (y - speed))) {
-                    y -= 1.0;
+                else if (y > target.y * 24 && World.pathIsFree(this.getX(), (int) (y - speed)) && !isColliding(this.getX(), (int) (y - 1))) {
+                    y--;
                 }
 
                 if (x == target.x * 24 && y == target.y * 24) {
                     path.remove(path.size() - 1);
-                    System.out.println("remove path");
                 }
             }
         }

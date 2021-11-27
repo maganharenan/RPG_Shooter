@@ -1,5 +1,7 @@
 package com.maganharenan.world;
 
+import com.maganharenan.entities.Enemy;
+
 import java.util.*;
 
 public class AStar {
@@ -96,7 +98,7 @@ public class AStar {
                     Tile testTile = World.tiles[x+xIndex+((y+yIndex)*World.WIDTH)];
                     Tile testTile2 = World.tiles[x+xIndex-1+((y+yIndex)*World.WIDTH)];
 
-                    if (testTile instanceof WallTile || testTile2 instanceof  WallTile) {
+                    if (testTile instanceof WallTile || testTile2 instanceof WallTile) {
                         continue;
                     }
                 }

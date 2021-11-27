@@ -67,7 +67,7 @@ public class Player extends Entity {
 
     @Override
     public void tick() {
-
+        depth = 2;
         if (jump) {
             if (!isJumping) {
                 jump = false;
@@ -94,6 +94,7 @@ public class Player extends Entity {
                     landing = true;
                 }
         }
+
 
         moved = false;
         if (right && World.pathIsFree((int)(x+speed), this.getY())) {

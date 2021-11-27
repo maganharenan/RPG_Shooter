@@ -49,21 +49,20 @@ public class Enemy extends Entity {
 
     @Override
     public void tick() {
-
+        depth =1;
         if (this.calculateDistanceBetween(this, Game.player) < 100) {
 
-            if (path == null || path.size() == 0) {
+            if (path == null || path.size() == 0 || new Random().nextInt(100) < 30) {
                 Vector2i start = new Vector2i((int)(this.x/ 24), (int)(this.y / 24));
                 Vector2i end = new Vector2i((int)(Game.player.x / 24), (int)(Game.player.y / 24));
 
                 path = AStar.findPath(Game.world, start, end);
             }
 
-            if (new Random().nextInt(100) < 60) {
-                followPath(path);
-            }
-
             if (!this.isCollidingWithPlayer()) {
+                if (new Random().nextInt(100) < 90) {
+                    followPath(path);
+                }
                 /*
                 if (Game.random.nextInt(100) < 40)
                     if ((int) x < Game.player.getX() && World.pathIsFree((int) (x + speed), this.getY()) && !isColliding((int) (x + speed), this.getY())) {
@@ -84,7 +83,7 @@ public class Enemy extends Entity {
                 */
 
             } else {
-                if (Game.random.nextInt(100) < 10) {
+                if (Game.random.nextInt(100) < 5) {
                     Game.player.life -= Game.random.nextInt(5);
                     if (Game.player.life <= 0) {
                         System.out.println("Life: " + Game.player.life);
@@ -120,6 +119,7 @@ public class Enemy extends Entity {
     }
 
     public void handleDamage(Bullet bullet) {
+        sound.play("hurt.wav", 1);
         isDamaged = true;
         life -= 40;
         Game.bullets.remove(bullet);
