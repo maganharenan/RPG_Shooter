@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class World {
 
@@ -17,6 +18,58 @@ public class World {
     public static final int TILE_SIZE = 24;
 
     public World(String path) {
+        /*
+        Game.player.setX(0);
+        Game.player.setY(0);
+        WIDTH = 24;
+        HEIGHT = 24;
+        tiles = new Tile[WIDTH*HEIGHT];
+
+        for (int xx = 0; xx < WIDTH; xx++) {
+            for (int yy = 0; yy < HEIGHT; yy++) {
+                tiles[xx + (yy * WIDTH)] = new WallTile(xx * TILE_SIZE, yy * TILE_SIZE, Tile.tile_wall);
+            }
+        }
+
+        int direction = 0;
+        int xAxis = 0;
+        int yAxis = 0;
+
+        for (int index = 0; index < 60; index++) {
+            tiles[xAxis + (yAxis * WIDTH)] = new FloorTile(xAxis * TILE_SIZE, yAxis * TILE_SIZE, Tile.tile_floor);
+
+            if (direction == 0) {
+                if (xAxis < WIDTH) {
+                    xAxis++;
+                }
+            }else if (direction == 1) {
+                if (xAxis > 0) {
+                    xAxis--;
+                }
+            }else if (direction == 2) {
+                if (yAxis < HEIGHT) {
+                    yAxis++;
+                }
+            }else if (direction == 3) {
+                if (yAxis > 0) {
+                    yAxis--;
+                }
+            }
+
+            if (index > 10 && index > 40) {
+                if (tiles[xAxis + (yAxis * WIDTH)] instanceof FloorTile) {
+                    if (new Random().nextInt(100) < 60) {
+                        Game.enemies.add(new Enemy(xAxis, yAxis, 24, 24, Entity.enemy_entity));
+                        Game.entities.add(new Enemy(xAxis, yAxis, 24, 24, Entity.enemy_entity));
+                    }
+                }
+            }
+
+            if (Game.random.nextInt(100) < 30) {
+                direction = Game.random.nextInt(3);
+            }
+        }
+        */
         try {
             BufferedImage map = ImageIO.read(getClass().getResource(path));
             int[] pixels = new int[map.getWidth() * map.getHeight()];
@@ -115,8 +168,8 @@ public class World {
             }
         }
 
-        int xPlayer = Game.player.getX() / 24;
-        int yPlayer = Game.player.getY() / 24;
+        int xPlayer = Game.player.getX() / TILE_SIZE;
+        int yPlayer = Game.player.getY() / TILE_SIZE;
 
         Game.minimapPixels[xPlayer + (yPlayer * WIDTH)] = 0xFF0000;
     }
@@ -124,8 +177,8 @@ public class World {
     public void render(Graphics graphics) {
         int startX = Camera.x / 24;
         int startY = Camera.y / 24;
-        int finalX = startX + (Game.WIDTH / 24) + 24;
-        int finalY = startY + (Game.HEIGHT / 24) + 24;
+        int finalX = startX + (Game.WIDTH / TILE_SIZE) + TILE_SIZE;
+        int finalY = startY + (Game.HEIGHT / TILE_SIZE) + TILE_SIZE;
 
         for (int axisX = startX; axisX <= finalX; axisX++) {
             for (int axisY = startY; axisY <= finalY; axisY++) {

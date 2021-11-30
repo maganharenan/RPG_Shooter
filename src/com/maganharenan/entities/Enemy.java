@@ -119,7 +119,8 @@ public class Enemy extends Entity {
     }
 
     public void handleDamage(Bullet bullet) {
-        sound.play("hurt.wav", 1);
+        sound.hurt.play();
+        //sound.play("hurt.wav", 1);
         isDamaged = true;
         life -= 40;
         Game.bullets.remove(bullet);

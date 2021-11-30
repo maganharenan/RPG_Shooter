@@ -9,6 +9,7 @@ import com.maganharenan.graphics.UI;
 import com.maganharenan.world.World;
 
 import javax.swing.*;
+import javax.swing.plaf.DimensionUIResource;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -61,7 +62,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
     public Game() {
         Sound sound = new Sound();
-        sound.play("level1.wav", 1000);
+        sound.music.loop();
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(16);
         } catch (FontFormatException e) {
@@ -75,6 +76,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         addKeyListener(this);
         addMouseListener(this);
         setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
+        //setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize()));
         initFrame();
 
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -95,8 +97,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
     }
 
     public void initFrame() {
-        frame = new JFrame("Zelda Clone");
+        frame = new JFrame("Jimmy Adventures");
         frame.add(this);
+        frame.setUndecorated(true);
         frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -205,8 +208,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
         graphics.dispose();
         graphics = bufferStrategy.getDrawGraphics();
         graphics.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
-        //graphics.setFont(font);
-        //graphics.drawString("Teste de nova fonte", 40, 40);
+        int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+        //graphics.drawImage(image, 0, 0, screenWidth, screenHeight, null);
 
         World.renderMinimap();
         graphics.drawImage(minimap, 530,530, World.WIDTH * 5, World.HEIGHT * 5, null);

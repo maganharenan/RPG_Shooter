@@ -147,7 +147,8 @@ public class Player extends Entity {
     }
 
     public void shoot() {
-        sound.play("shoot.wav", 0);
+        sound.shoot.play();
+        //sound.play("shoot.wav", 0);
         ammo--;
         int directionX = 0;
         int directionY = 0;
@@ -186,7 +187,8 @@ public class Player extends Entity {
     public void updateLifePoints(Entity entity) {
         if (Entity.isColliding(this, entity)) {
             if (life < 100) {
-                sound.play("getItem.wav", 0);
+                sound.getItem.play();
+                //sound.play("getItem.wav", 0);
                 life += 20;
                 if (life > 100) {
                     life = 100;
@@ -198,7 +200,8 @@ public class Player extends Entity {
 
     public void updateAmmo(Entity entity) {
         if (Entity.isColliding(this, entity)) {
-            sound.play("getItem.wav", 0);
+            sound.getItem.play();
+            //sound.play("getItem.wav", 0);
             ammo += 10;
             Game.entities.remove(entity);
         }
@@ -206,7 +209,8 @@ public class Player extends Entity {
 
     public void updateWeapon(Entity entity) {
         if (Entity.isColliding(this, entity)) {
-            sound.play("getItem.wav", 0);
+            sound.getItem.play();
+            //sound.play("getItem.wav", 0);
             hasWeapon = true;
             Game.entities.remove(entity);
         }
